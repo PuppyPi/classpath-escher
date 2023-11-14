@@ -1,4 +1,51 @@
 -*- outline -*-
+
+* Moaxcp
+** This was a fork from the same source tree as Umjammer's with Marcos's extra commits; I (RProgrammer/PuppyPi) @have manually merged in the changes made to it onto Umjammer's source tree (plus other forks' changes)
+** It is on GitHub at: https://github.com/moaxcp/escher
+** TODO Merge them!!
+
+* Xaodorft
+** This was a fork from v0.3; I (RProgrammer/PuppyPi) @have manually merged in the changes made to it onto Umjammer's source tree (plus other forks' changes)
+** It is on GitHub at: https://github.com/xadorfr/J11
+** TODO Merge them!!
+
+* Original Rebound Fork
+** This was a fork from v0.3; I (RProgrammer/PuppyPi) @have manually merged in the changes made to it onto Umjammer's source tree
+** It was never published.
+** TODO Merge them!!
+
+* Umjammer (Naohide Sano <namachapanda2005@gmail.com>)
+** It is on GitHub at: https://github.com/umjammer/classpath-escher
+** This project (https://github.com/PuppyPi/classpath-escher) was GitHub-forked from Umjammer's at around 2023-11-14 18:?? UTC!
+** This region entirely exists within these commits of this source tree! (in reverse chronological order)
+   - 356cd6462fb63d77d5a3af2e59ffb4b784e9eae4  (Update README.md)
+   - ac06aeebe51f5c1c2e583e18392d0f2a5c9be1ed  (💄)
+   - fad56429ad016e244f796575a086d7d56a825588  (add lacked getter)
+   - c85b547ab0227b686dfea8c3a7aafd5754b2bc06  (tidy up)
+   - 52421ccbd83a423a4863a7e2a9250c2d091d2184  (mavenize)
+** TODO Document the changes made here
+
+* One of the original authors, Marcos (marcos roriz <marcosrorizinf@gmail.com>), made extra changes after the latest SourceForge but before the forks.
+** The fact that these are not in the official SourceForge version history implies Umjammer is either one of the original authors or somehow got access to some Secret New Changes! :)
+** This region entirely exists within these commits of this source tree! (in reverse chronological order)
+   - 5f156e5aeed31ec0499120c523489e818b2516e6  (Added basic annotation (opcode and length) to some classes)
+   - e1ef2852b9a456ae3b586db4adea2f459b1c43b3  (Basic stuff)
+   - f8abd2daa9ef437d8c5479619d73f7e261df46b7  (Basic constants to enum on keyboards)
+   - 6950b0b3f4919013214407342f394387252907bc  (Fixed some constants, build ok)
+   - 6d72f01d5e02c504a6bbd888b004da9aea66acb7  (Renamed all methods to camelCase, 6k lines of code :3. Needs to extract bunch of classes :])
+   - 8af834545eb1c61e276762d2905c590da908bb21  (Fixed Error and GLX Error)
+** TODO Document the changes made here
+
+* MAAAAAAANY changes were made after v0.3 but before the project became inactive on SourceForge!  This ends with the end of the SourceForge project's version history.
+** Todo-low-priority: We're not even going to try to document them XD'
+** The commit 22cf122a25debc42f4e2beb931892ae7aac1fdca (Just some clearing camelCase in the reamining extension classes) here corresponds to the last commit on the Source Forge version history.
+   - This is what Moaxcp pulls from!
+** Commit 5c7e6533c42443c26d807cf23dde622ad05847a8 (Bumped version number to 0.3) was confirmed to be perfectly identical (in actual Java src/ source code) to the Source Forge v0.3 release tarball, save for a stray binary compiled classfile left in the release tarball at gnu/util/Classpath$1.class X3
+   - This is what Xaodorft and the Original Rebound Fork pull from!
+
+==== Original project changelog ====
+
 * 0.3
 ** Performance optimization
    - The protocol implementation has been rewritten to avoid excessive
