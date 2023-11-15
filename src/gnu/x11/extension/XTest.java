@@ -124,6 +124,7 @@ public class XTest extends Extension {
       o.skip(8);
       o.writeInt16(x);
       o.writeInt16(y);
+      o.skip(8);
       o.send();
     }
   }
