@@ -1175,6 +1175,12 @@ public class Window extends Drawable implements GLXDrawable {
             throw new IllegalArgumentException("Illegal format argument: "
                     + format);
         }
+        
+        changeProperty (mode, property, type, data_format, byteData);
+    }
+
+    public void changeProperty(PropertyMode mode, Atom property, Atom type,
+                               int format, byte[] byteData) {
         int len = 0;
         int n = byteData.length;
         switch (format) {
