@@ -75,7 +75,7 @@ public class XTest extends Extension {
       ResponseInputStream i = display.getResponseInputStream();
       synchronized(i) {
         i.readReply(o);
-        i.skip(1);
+        i.skip(1);  //FIXME shouldn't this not be here!?!
         same = i.readBool();
         i.skip(30);
       }
@@ -140,6 +140,7 @@ public class XTest extends Extension {
     synchronized(o) {
       o.beginRequest(majorOpcode, 3, 2);
       o.writeBool(impervious);
+      o.skip(3);
       o.send();
     }
   }
