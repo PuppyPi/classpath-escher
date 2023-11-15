@@ -1128,6 +1128,12 @@ public class Window extends Drawable implements GLXDrawable {
     public void changeProperty(PropertyMode mode, Atom property, Atom type,
                                int format, Object data, int offset, int data_format) {
 
+        if (offset != 0)
+          throw new RuntimeException ("offset was never used or supported by the Escher developers!!");  //FIXME take it out or support it!!
+
+        if (format != data_format)
+          throw new RuntimeException ("data_format was never used or supported by the Escher developers!!");  //FIXME take it out or support it!!
+
         byte[] byteData;
         switch (format) {
         case 8:
