@@ -455,6 +455,15 @@ public class Window extends Drawable implements GLXDrawable {
 
             return new String(value);
         }
+
+
+        /**
+         * Returns the raw property value directly (a copy of it, that is, like {@link #stringValue()} does implicitly)
+         */
+        public byte[] rawValue() {
+
+          return value.clone();
+        }
     }
     
     
