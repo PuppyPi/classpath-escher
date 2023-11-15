@@ -1181,7 +1181,7 @@ public class Window extends Drawable implements GLXDrawable {
 
     public void changeProperty(PropertyMode mode, Atom property, Atom type,
                                int format, byte[] byteData) {
-        int len = 0;
+        int len;
         int n = byteData.length;
         switch (format) {
         case 8:
@@ -1194,7 +1194,8 @@ public class Window extends Drawable implements GLXDrawable {
             len = n / 4;
             break;
         default:
-            len = 0;
+            throw new IllegalArgumentException("Illegal format argument: "
+                    + format);
         }
 
         int p = RequestOutputStream.pad(n);
