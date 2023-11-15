@@ -21,9 +21,6 @@ import gnu.x11.extension.ErrorFactory;
 import gnu.x11.extension.EventFactory;
 import gnu.x11.extension.NotFoundException;
 import gnu.x11.extension.XCMisc;
-import jnr.unixsocket.UnixSocket;
-import jnr.unixsocket.UnixSocketAddress;
-import jnr.unixsocket.UnixSocketChannel;
 
 /** X server connection. */
 // TODO Support Multiple Screens
@@ -54,7 +51,7 @@ public class Display implements Closeable {
     /**
      * The socket.
      */
-    private Socket socket;
+    private X11Socketlike socket;
 
     /**
      * The hostname to this display.
@@ -229,7 +226,7 @@ public class Display implements Closeable {
      *            the screen number
      * @throws EscherServerConnectionException
      */
-    public Display(Socket socket, String hostname, int displayNumber, int screenNumber)
+    public Display(X11Socketlike socket, String hostname, int displayNumber, int screenNumber)
             throws EscherServerConnectionException {
 
         setDefaultScreenNumber(screenNumber);
@@ -237,35 +234,6 @@ public class Display implements Closeable {
         setDisplayNumber(displayNumber);
         setSocket(socket);
         
-        init_streams();
-        init();
-    }
-
-    /**
-     * @param screenNumber -1 if not specified, {@link #defaultScreenNumber} will be 0
-     * @throws EscherServerConnectionException
-     * @see <a href="XOpenDisplay.html">XOpenDisplay</a>
-     */
-    public Display(String hostname, int displayNumber, int screenNumber)
-            throws EscherServerConnectionException {
-        
-        setDefaultScreenNumber(screenNumber != -1 ? screenNumber : 0);
-        setHostname(hostname);
-        setDisplayNumber(displayNumber);
-        try {
-System.err.println("Deisplay::<init>: " + hostname + ":" + displayNumber + "." + screenNumber);
-            if (hostname.startsWith("/")) {
-                String displayNmae = hostname + ":" + displayNumber + (screenNumber != -1 ? "." + screenNumber : "");
-                UnixSocketAddress address = new UnixSocketAddress(displayNmae);
-                UnixSocketChannel channel = UnixSocketChannel.open(address);
-                socket = new UnixSocket(channel);
-            } else {
-                socket = new Socket(hostname, 6000 + displayNumber);
-            }
-            setSocket(socket);
-        } catch (IOException ex) {
-            handleException(ex);
-        }
         init_streams();
         init();
     }
@@ -1545,7 +1513,7 @@ System.err.println("Deisplay::<init>: " + hostname + ":" + displayNumber + "." +
 
     // Gets and Set's    
 
-    public Socket getSocket() {
+    public X11Socketlike getSocket() {
     
         return socket;
     }
@@ -1779,7 +1747,7 @@ System.err.println("Deisplay::<init>: " + hostname + ":" + displayNumber + "." +
     }
 
     
-    public void setSocket(Socket socket) {
+    public void setSocket(X11Socketlike socket) {
     
         this.socket = socket;
     }
