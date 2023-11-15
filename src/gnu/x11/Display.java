@@ -2,6 +2,7 @@
 package gnu.x11;
 
 import java.io.BufferedInputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -26,7 +27,7 @@ import jnr.unixsocket.UnixSocketChannel;
 
 /** X server connection. */
 // TODO Support Multiple Screens
-public class Display {
+public class Display implements Closeable {
 
     private static java.util.logging.Logger logger;
     static {
