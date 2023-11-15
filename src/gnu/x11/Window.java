@@ -410,6 +410,11 @@ public class Window extends Drawable implements GLXDrawable {
             return typeID;
         }
 
+        public int bytesAfter() {
+
+          return bytesAfter;
+        }
+
         /**
          * Returns the value at index <code>i</code>. This interprets the
          * underlying byte data according to the format of this property.
