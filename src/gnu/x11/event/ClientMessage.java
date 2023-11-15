@@ -2,7 +2,9 @@ package gnu.x11.event;
 
 import gnu.x11.Atom;
 import gnu.x11.Display;
+import gnu.x11.RequestOutputStream;
 import gnu.x11.ResponseInputStream;
+import gnu.x11.Window;
 
 
 /** X client message event. */
@@ -21,6 +23,31 @@ public final class ClientMessage extends Event {
     typeAtomID = in.readInt32();
     data = new byte[20];
     in.readData(data);
+  }
+
+
+  /** Writing. */
+  public ClientMessage (Display display, int numberOfBitsPerLogicalElement,
+                        int window_id, int type_atom_id, byte[] data) {
+    super (display, EventCode.CLIENT_MESSAGE);
+
+    if (data.length != 20)
+      throw new IllegalArgumentException (
+                                          "Data was "
+                                              + data.length
+                                              + " bytes instead of the required 20 bytes!");
+
+    this.detail = numberOfBitsPerLogicalElement;
+
+    this.windowID = window_id;
+    this.typeAtomID = type_atom_id;
+    this.data = data;
+  }
+
+  public ClientMessage (Window window, Atom type,
+                        int numberOfBitsPerLogicalElement, byte[] data) {
+    this (window.getDisplay (), numberOfBitsPerLogicalElement, window.getID (), type.getID (),
+          data);
   }
 
 
@@ -69,4 +96,13 @@ public final class ClientMessage extends Event {
     return windowID;
   }
 
+
+
+  // -- writing
+  @Override public void write (RequestOutputStream o) {
+    super.write (o);
+    o.writeInt32 (windowID);
+    o.writeInt32 (typeAtomID);
+    o.write (data);
+  }
 }
