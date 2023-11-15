@@ -11,9 +11,12 @@
 ** TODO Merge them!!
 
 * Original Rebound Fork
-** This was a fork from v0.3; I (RProgrammer/PuppyPi) @have manually merged in the changes made to it onto Umjammer's source tree
+** This was a fork from v0.3; I (RProgrammer/PuppyPi) have manually merged in the changes made to it onto Umjammer's source tree
 ** It was never published.
-** TODO Merge them!!
+** The merge took place over these commits:
+   - ecb2a5f8fc5e3f4d907af098a89928ce92720a3c  (AAAAAAaaaaaaaaaaaaaand generalize the sockets so that Unix Domain Sockets can be used with the library of the caller's choice! :DD)
+   - ...
+   - e8425e62679787c51bc078f85fde6f9fa383fdc8  (Ahhhhhhhh beginnnnnnn mergingggggg the original Rebound Fork! :DD)
 
 * Umjammer (Naohide Sano <namachapanda2005@gmail.com>)
 ** It is on GitHub at: https://github.com/umjammer/classpath-escher
