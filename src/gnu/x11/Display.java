@@ -1174,8 +1174,8 @@ System.err.println("Deisplay::<init>: " + hostname + ":" + displayNumber + "." +
 
         // FIXME: Implement more sensible shutdown.
         try {
+            outputStream.close();  // this might need to flush, but closing the input stream might close the whole socket!
             inputStream.close();
-            outputStream.close();
             socket.close();
         } catch (IOException ex) {
             handleException(ex);
