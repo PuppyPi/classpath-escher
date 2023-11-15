@@ -1218,7 +1218,7 @@ public class Window extends Drawable implements GLXDrawable {
             o.beginRequest(20, delete ? 1 : 0, 6);
             o.writeInt32(id);
             o.writeInt32(property.getID());
-            o.writeInt32(type.getID());
+            o.writeInt32(type == null ? 0 : type.getID());
             o.writeInt32(offset);
             o.writeInt32(length);
             ResponseInputStream i = display.getResponseInputStream();
