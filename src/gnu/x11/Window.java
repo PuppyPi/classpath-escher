@@ -424,7 +424,7 @@ public class Window extends Drawable implements GLXDrawable {
             int v;
             switch (format) {
             case 8:
-                v = value[i];
+                v = value[i];  //FIXME Do we need to do & 0xff here?
                 break;
             case 16:
                 v = ((0xff & value[i * 2]) << 8) | (0xff & value[i * 2 + 1]);
