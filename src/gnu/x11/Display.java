@@ -248,7 +248,7 @@ public class Display implements Closeable {
     private void init() throws EscherServerConnectionException {
 
         // authorization protocol
-        Optional<XAuthority> xauth = XAuthority.getAuthority(hostname);
+        Optional<XAuthority> xauth = XAuthority.getAuthority(hostname, displayNumber);
 
         byte[] authName;
         byte[] authData;
@@ -1357,49 +1357,6 @@ public class Display implements Closeable {
                         + "\n  vendor: " + vendor + "\n  release-number: "
                         + releaseNumber + "\n  maximum-request-length: "
                         + maximumRequestLength;
-    }
-
-    /**
-     * Fetches the XAuthority that matches this display.
-     * 
-     * @return the XAuthority that matches this display
-     */
-    private XAuthority getAuthority() {
-
-        List<XAuthority> auths = XAuthority.getAuthorities();
-
-        // Fetch hostname.
-        if (hostname == null || hostname.equals("")
-                        || hostname.equals("localhost")) {
-            // Translate localhost hostnames to the real hostname of this host.
-            try {
-                InetAddress local = InetAddress.getLocalHost();
-                hostname = local.getHostName();
-            } catch (UnknownHostException ex) {
-                ex.printStackTrace();
-            }
-        }
-
-        // Fetch display no.
-        String displayNo = String.valueOf(displayNumber);
-
-        // Find the XAuthority that matches the hostname and display no.
-        XAuthority found = null;
-        for (int i = 0; i < auths.size (); i++) {
-            XAuthority auth = auths.get(i);
-            try {
-                if (auth.getHostname() != null
-                    && auth.getDisplayNumber().equals(displayNo)
-                    && InetAddress.getByName(auth.getHostname()).equals(
-                       InetAddress.getByName(hostname))) {
-                    found = auth;
-                    break;
-                }
-            } catch (UnknownHostException ex) {
-                System.err.println("Display::getAuthority: unknown host:" + auth.getHostname());
-            }
-        }
-        return found;
     }
 
     public void check_error() {
