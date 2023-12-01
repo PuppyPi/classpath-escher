@@ -425,7 +425,13 @@ public class Window extends Drawable implements GLXDrawable {
          * @return the value at the specified index
          */
         public int value(int i) {
-
+            /*
+             * In the Java Virtual Machine, bytes, shorts and ints are all four bytes
+             * long. Hence, when you add two bytes together you are actually
+             * performing 32-bit arithmatic. The (& 0XFF) ensure to work with the real
+             * byte value instead of the corresponding 32 bits value which would break
+             * the OR operation between bytes
+             */
             int v;
             switch (format) {
             case 8:
