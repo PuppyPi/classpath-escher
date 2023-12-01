@@ -1,62 +1,66 @@
 package publicapi;
 
-import gnu.x11.Host.InternetFamily;
 import gnu.x11.XAuthority.Family;
-import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.Test;
 
 public class XAuthorityFamilyTest {
   @Test
   void internetCode() {
-    assertThat(Family.INTERNET.getCode()).isEqualTo(0);
+    assert Family.INTERNET.getCode() == 0;
   }
   @Test
   void localCode() {
-    assertThat(Family.LOCAL.getCode()).isEqualTo(256);
+    assert Family.LOCAL.getCode() == 256;
   }
   @Test
   void wildCode() {
-    assertThat(Family.WILD.getCode()).isEqualTo(65535);
+    assert Family.WILD.getCode() == 65535;
   }
   @Test
   void krb5principalCode() {
-    assertThat(Family.KRB5PRINCIPAL.getCode()).isEqualTo(254);
+    assert Family.KRB5PRINCIPAL.getCode() == 254;
   }
   @Test
   void localhostCode() {
-    assertThat(Family.LOCALHOST.getCode()).isEqualTo(252);
+    assert Family.LOCALHOST.getCode() == 252;
   }
 
   @Test
   void internet_getByCode() {
-    assertThat(Family.getByCode(0)).isEqualTo(Family.INTERNET);
+    assert Family.getByCode(0) == Family.INTERNET;
   }
 
   @Test
   void local_getByCode() {
-    assertThat(Family.getByCode(256)).isEqualTo(Family.LOCAL);
+    assert Family.getByCode(256) == Family.LOCAL;
   }
 
   @Test
   void wild_getByCode() {
-    assertThat(Family.getByCode(65535)).isEqualTo(Family.WILD);
+    assert Family.getByCode(65535) == Family.WILD;
   }
 
   @Test
   void krb_getByCode() {
-    assertThat(Family.getByCode(254)).isEqualTo(Family.KRB5PRINCIPAL);
+    assert Family.getByCode(254) == Family.KRB5PRINCIPAL;
   }
 
   @Test
   void localhost_getByCode() {
-    assertThat(Family.getByCode(252)).isEqualTo(Family.LOCALHOST);
+    assert Family.getByCode(252) == Family.LOCALHOST;
   }
 
   @Test
   void fail_getByCode() {
-    IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> Family.getByCode(-1234));
-    assertThat(exception).hasMessage("Unsupported code \"-1234\"");
+    boolean pass = false;
+    try {
+      Family.getByCode(-1234);
+    }
+    catch (IllegalArgumentException exc) {
+      assert "Unsupported code \"-1234\"".equals(exc.getMessage());
+      pass = true;
+    }
+    assert pass;
   }
 }
