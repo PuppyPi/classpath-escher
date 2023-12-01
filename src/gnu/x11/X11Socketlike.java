@@ -4,7 +4,10 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UncheckedIOException;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public interface X11Socketlike extends Closeable {
   public InputStream getInputStream () throws IOException;
@@ -25,5 +28,16 @@ public interface X11Socketlike extends Closeable {
         return socket.getOutputStream ();
       }
     };
+  }
+  
+  public static String translateIfLocalhost (String hostName) {
+    if(hostName.equals("localhost")) {
+        try {
+            return InetAddress.getLocalHost().getHostName();
+        } catch (UnknownHostException e) {
+            throw new UncheckedIOException(e);
+        }
+    }
+    return hostName;
   }
 }
