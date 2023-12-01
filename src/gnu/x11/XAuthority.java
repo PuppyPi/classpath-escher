@@ -1,11 +1,18 @@
 
 package gnu.x11;
 
-import java.io.*;
+import java.io.DataInput;
+import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UncheckedIOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
 
@@ -62,7 +69,12 @@ public class XAuthority {
    * @return the current Xauthority entries
    */
   public static List<XAuthority> getAuthorities() {
-    return getAuthorities(getXAuthorityFile());
+    try {
+      return getAuthorities(getXAuthorityFile());
+    }
+    catch (IOException exc) {
+      throw new UncheckedIOException (exc);
+    }
   }
 
   public static File getXAuthorityFile() {
@@ -73,7 +85,7 @@ public class XAuthority {
     return new File(authFilename);
   }
 
-  public static List<XAuthority> getAuthorities(File file) {
+  public static List<XAuthority> getAuthorities(File file) throws IOException {
     List<XAuthority> authorities = new ArrayList<>();
     try (DataInputStream in = new DataInputStream(new FileInputStream(file))) {
       Optional<XAuthority> read = read(in);
@@ -82,8 +94,6 @@ public class XAuthority {
         authorities.add(current);
         read = read(in);
       }
-    } catch(IOException ex) {
-      throw new X11ClientException(ex);
     }
     return authorities;
   }
