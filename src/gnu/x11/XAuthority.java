@@ -125,22 +125,40 @@ public class XAuthority {
       return false;  //do nothing
     }
   }
+  
+  public static Optional<XAuthority> getAuthority(@Nonnull String hostName) {
+    return getAuthority(Family.WILD, hostName, null);
+  }
 
-  public static Optional<XAuthority> getAuthority(String hostName) {
+  public static Optional<XAuthority> getAuthority(@Nonnull String hostName, @Nullable Integer displayNumber) {
+    return getAuthority(Family.WILD, hostName, displayNumber);
+  }
+  
+  public static Optional<XAuthority> getAuthority(@Nonnull Family family, @Nonnull String hostName, @Nullable Integer displayNumber) {
     List<XAuthority> auths = getAuthorities();
     for (int i = 0; i < auths.size(); i++) {
       XAuthority auth = auths.get(i);
-        switch(auth.getFamily()) {
-          case WILD:
-            return Optional.of(auth);
-          default:
-              if (hostNameMatch (auth.getAddress(), hostName)) {
-                return Optional.of(auth);
-              }
-            break;
-        }
+      if (isMatching(auth, family, hostName, displayNumber)) {
+        return Optional.of(auth);
+      }
     }
     return Optional.empty();
+  }
+  
+  public static boolean isMatching(XAuthority auth, @Nonnull Family family, @Nonnull String hostName, @Nullable Integer displayNumber) {
+    if (family != Family.WILD && auth.getFamily() != Family.WILD)
+      if (family != auth.getFamily())
+        return false;
+    
+    if (hostName.isEmpty() && auth.getAddress().length > 0)
+      if (!hostNameMatch(auth.getAddress(), hostName))
+        return false;
+    
+    if (displayNumber != null && auth.getDisplayNumber() != null)
+      if (displayNumber.intValue() != auth.getDisplayNumber().intValue())
+        return false;
+    
+    return true;
   }
 
   private static byte[] readBytes(DataInput in, int length) throws IOException {
