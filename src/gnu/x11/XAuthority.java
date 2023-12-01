@@ -6,6 +6,7 @@ import java.io.DataInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -86,16 +87,20 @@ public class XAuthority {
     }
     return new File(authFilename);
   }
-
+  
   public static List<XAuthority> getAuthorities(File file) throws IOException {
+    try (InputStream in = new FileInputStream(file)) {
+      return getAuthorities(new DataInputStream(in));
+    }
+  }
+
+  public static List<XAuthority> getAuthorities(DataInput in) throws IOException {
     List<XAuthority> authorities = new ArrayList<>();
-    try (DataInputStream in = new DataInputStream(new FileInputStream(file))) {
-      Optional<XAuthority> read = read(in);
-      while(read.isPresent()) {
-        XAuthority current = read.get();
-        authorities.add(current);
-        read = read(in);
-      }
+    Optional<XAuthority> read = read(in);
+    while(read.isPresent()) {
+      XAuthority current = read.get();
+      authorities.add(current);
+      read = read(in);
     }
     return authorities;
   }

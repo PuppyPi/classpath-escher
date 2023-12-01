@@ -2,7 +2,7 @@ package gnu.x11;
 
 import gnu.x11.XAuthority.Family;
 
-import java.io.File;
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.junit.Test;
 public class XAuthorityFile {
   @Test
   public void readFile() throws IOException {
-    List<XAuthority> authorities = XAuthority.getAuthorities(new File(getClass().getClassLoader().getResource(".Xauthority").getFile()));
+    List<XAuthority> authorities = XAuthority.getAuthorities(new DataInputStream(getClass().getClassLoader().getResourceAsStream(".Xauthority")));
     assert authorities.size() == 2;
     XAuthority first = authorities.get(0);
     assert first.getFamily() == Family.LOCAL;
