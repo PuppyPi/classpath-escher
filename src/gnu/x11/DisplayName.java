@@ -7,8 +7,6 @@ import java.net.*;
 
 import javax.annotation.Nonnull;
 
-import static gnu.util.Strings.*;
-
 /**
  * X display name. Encapsulates display name conventions in unix for creating a Display. If the connection is a unix
  * socket the file is "/tmp/.X11-unix/X" + displayNumber. If the connection is tcp the port is 6000 + displayNumber.
@@ -21,7 +19,9 @@ public class DisplayName {
 
   private DisplayName(String hostName, int displayNumber, int screenNumber, File socketFile) {
     if(hostName != null) {
-      this.hostName = requiresNonBlank("hostName", hostName);
+      if (hostName.trim().isEmpty())
+        throw new IllegalArgumentException("Blank or empty hostname given!");
+      this.hostName = hostName;
     } else {
       this.hostName = null;
     }
@@ -68,7 +68,8 @@ public class DisplayName {
    * @return resulting DisplayName
    */
   public static DisplayName parse(@Nonnull String convention) {
-    requiresNonBlank("convention", convention);
+    if (convention.trim().isEmpty())
+      throw new IllegalArgumentException("Provided display name was blank or empty");
 
     String hostName = null;
 
