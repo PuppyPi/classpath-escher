@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * An XAuthority.
@@ -25,7 +26,7 @@ public class XAuthority {
 
   @Nonnull Family family;
   @Nonnull byte[] address;
-  int displayNumber;
+  @Nullable Integer displayNumber;
   @Nonnull String protocolName;
   @Nonnull byte[] protocolData;
 
@@ -50,7 +51,7 @@ public class XAuthority {
     return address;
   }
 
-  public int getDisplayNumber () {
+  public Integer getDisplayNumber () {
     return displayNumber;
   }
 
@@ -103,7 +104,8 @@ public class XAuthority {
       Family family = Family.getByCode(in.readUnsignedShort());
       int dataLength = in.readUnsignedShort();
       byte[] address = readBytes(in, dataLength);
-      int number = Integer.parseInt(in.readUTF());  //TODO I don't think X11 actually uses Java's very specific Modified UTF-8 character encoding >>'
+      String numberS = in.readUTF();  //TODO I don't think X11 actually uses Java's very specific Modified UTF-8 character encoding >>'
+      Integer number = numberS.isEmpty() ? null : Integer.parseInt(numberS);
       String name = in.readUTF();  //TODO I don't think X11 actually uses Java's very specific Modified UTF-8 character encoding >>'
       dataLength = in.readUnsignedShort();
       byte[] data = readBytes(in, dataLength);

@@ -58,7 +58,7 @@ public class XAuthorityTest {
     XAuthority xAuthority = new XAuthority(Family.LOCAL, "host".getBytes(), 0, "magic", new byte[]{1, 2, 3});
     assert xAuthority.getFamily() == Family.LOCAL;
     assert Arrays.equals(xAuthority.getAddress(), "host".getBytes());
-    assert xAuthority.getDisplayNumber() == 0;
+    assert xAuthority.getDisplayNumber().intValue() == 0;
     assert xAuthority.getProtocolName().equals("magic");
     assert Arrays.equals(xAuthority.getProtocolData(), new byte[]{1, 2, 3});
   }
@@ -76,7 +76,7 @@ public class XAuthorityTest {
     XAuthority xAuthority = read.get();
     assert xAuthority.getFamily() == Family.LOCAL;
     assert Arrays.equals(xAuthority.getAddress(), "host".getBytes());
-    assert xAuthority.getDisplayNumber() == 3;
+    assert xAuthority.getDisplayNumber().intValue() == 3;
     assert xAuthority.getProtocolName().equals("magic");
     assert Arrays.equals(xAuthority.getProtocolData(), new byte[]{1, 2, 3});
   }
