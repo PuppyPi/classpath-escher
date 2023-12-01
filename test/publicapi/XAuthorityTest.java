@@ -71,7 +71,7 @@ public class XAuthorityTest {
 
   @Test
   public void read() throws IOException {
-    Optional<XAuthority> read = XAuthority.read(new DataInputStream(new ByteArrayInputStream(new byte[]{(byte)0x01, (byte)0x00, (byte)0x00, (byte)0x04, (byte)0x00, (byte)0x00, (byte)0x03, (byte)0x01, (byte)0x33, (byte)0x00, (byte)0x05, (byte)0x6D, (byte)0x61, (byte)0x67, (byte)0x69, (byte)0x63, (byte)0x68, (byte)0x6F, (byte)0x73, (byte)0x74, (byte)0x01, (byte)0x02, (byte)0x03})));
+    Optional<XAuthority> read = XAuthority.read(new DataInputStream(new ByteArrayInputStream(new byte[]{(byte)0x01, (byte)0x00, (byte)0x00, (byte)0x04, (byte)0x00, (byte)0x00, (byte)0x03, (byte)0x00, (byte)0x01, (byte)0x33, (byte)0x00, (byte)0x05, (byte)0x6D, (byte)0x61, (byte)0x67, (byte)0x69, (byte)0x63, (byte)0x68, (byte)0x6F, (byte)0x73, (byte)0x74, (byte)0x01, (byte)0x02, (byte)0x03})));
     assert read.isPresent();
     XAuthority xAuthority = read.get();
     assert xAuthority.getFamily() == Family.LOCAL;
