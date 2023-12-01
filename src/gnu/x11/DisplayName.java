@@ -108,7 +108,7 @@ public class DisplayName {
    * connecting. If socketPath is set a unix socket is used otherwise a tcp socket is used.
    * @return
    */
-  public Display connect(@Nullable UnixSocketOpener unixDomainSocketOpener) {
+  public Display connect(@Nullable UnixSocketOpener unixDomainSocketOpener) throws EscherServerConnectionException {
     X11Socketlike socket;
 
     try {
