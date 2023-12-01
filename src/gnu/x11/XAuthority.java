@@ -20,6 +20,7 @@ import javax.annotation.Nullable;
 /**
  * An XAuthority.
  * https://gitlab.freedesktop.org/xorg/lib/libxau/-/blob/master/include/X11/Xauth.h
+ * https://gitlab.freedesktop.org/xorg/lib/libxau/-/blob/master/AuGetBest.c
  * https://gitlab.freedesktop.org/xorg/lib/libxau
  */
 public class XAuthority {
