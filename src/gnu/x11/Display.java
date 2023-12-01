@@ -1,6 +1,13 @@
 
 package gnu.x11;
 
+import gnu.x11.event.Event;
+import gnu.x11.extension.BigRequests;
+import gnu.x11.extension.ErrorFactory;
+import gnu.x11.extension.EventFactory;
+import gnu.x11.extension.NotFoundException;
+import gnu.x11.extension.XCMisc;
+
 import java.io.BufferedInputStream;
 import java.io.Closeable;
 import java.io.IOException;
@@ -8,18 +15,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
-
-import gnu.x11.event.Event;
-import gnu.x11.extension.BigRequests;
-import gnu.x11.extension.ErrorFactory;
-import gnu.x11.extension.EventFactory;
-import gnu.x11.extension.NotFoundException;
-import gnu.x11.extension.XCMisc;
 
 /** X server connection. */
 // TODO Support Multiple Screens
@@ -246,15 +248,14 @@ public class Display implements Closeable {
     private void init() throws EscherServerConnectionException {
 
         // authorization protocol
-        XAuthority xauth = getAuthority();
+        Optional<XAuthority> xauth = XAuthority.getAuthority(hostname);
 
         byte[] authName;
         byte[] authData;
-        if (xauth != null) {
-            authName = xauth.getProtocolName();
-            authData = xauth.getProtocolData();
+        if (xauth.isPresent()) {
+            authName = xauth.get().getProtocolName().getBytes(StandardCharsets.UTF_8);  //Technically we should probably use ISO-8859-1 implied by the X11 spec using that everywhere else, but they never used it afaik, so future extensions, if they ever used non-ASCII characters (which is probably unlikely) will probably use UTF-8!
+            authData = xauth.get().getProtocolData();
         } else {
-            // In case the X authority couldn't be established...
             authName = new byte[0];
             authData = new byte[0];
         }
@@ -1365,7 +1366,7 @@ public class Display implements Closeable {
      */
     private XAuthority getAuthority() {
 
-        XAuthority[] auths = XAuthority.getAuthorities();
+        List<XAuthority> auths = XAuthority.getAuthorities();
 
         // Fetch hostname.
         if (hostname == null || hostname.equals("")
@@ -1384,8 +1385,8 @@ public class Display implements Closeable {
 
         // Find the XAuthority that matches the hostname and display no.
         XAuthority found = null;
-        for (int i = 0; i < auths.length; i++) {
-            XAuthority auth = auths[i];
+        for (int i = 0; i < auths.size (); i++) {
+            XAuthority auth = auths.get(i);
             try {
                 if (auth.getHostname() != null
                     && auth.getDisplayNumber().equals(displayNo)
