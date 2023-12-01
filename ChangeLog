@@ -4,6 +4,9 @@
 ** This was a fork from the same source tree as Umjammer's with Marcos's extra commits; I (RProgrammer/PuppyPi) @have manually merged in the changes made to it onto Umjammer's source tree (plus other forks' changes)
 ** It is on GitHub at: https://github.com/moaxcp/escher
 ** TODO Merge them!!
+   - @@@  (@@@)
+   - ...
+   - 3a1e017d90879b6c6e4b0c02e65eb19b67a4086c  ((First from Moaxcp!)  Fixed issue all events read from x11 where LAST_EVENT rather than the actual event.)
 
 * Xaodorft
 ** This was a fork from v0.3; I (RProgrammer/PuppyPi) have manually merged in the changes made to it onto Umjammer's source tree (plus other forks' changes)
