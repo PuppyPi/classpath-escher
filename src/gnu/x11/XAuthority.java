@@ -35,6 +35,26 @@ public class XAuthority {
     this.protocolData = protocolData;
   }
 
+  public Family getFamily () {
+    return family;
+  }
+
+  public byte[] getAddress () {
+    return address;
+  }
+
+  public int getDisplayNumber () {
+    return displayNumber;
+  }
+
+  public String getProtocolName () {
+    return protocolName;
+  }
+
+  public byte[] getProtocolData () {
+    return protocolData;
+  }
+
   /**
    * Fetches the current Xauthority entries from $HOME/.Xauthority or
    * whatever is specified in the environment variable $XAUTHORITY.
