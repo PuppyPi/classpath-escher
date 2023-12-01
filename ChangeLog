@@ -6,9 +6,12 @@
 ** TODO Merge them!!
 
 * Xaodorft
-** This was a fork from v0.3; I (RProgrammer/PuppyPi) @have manually merged in the changes made to it onto Umjammer's source tree (plus other forks' changes)
+** This was a fork from v0.3; I (RProgrammer/PuppyPi) have manually merged in the changes made to it onto Umjammer's source tree (plus other forks' changes)
 ** It is on GitHub at: https://github.com/xadorfr/J11
-** TODO Merge them!!
+** The merge took place over these commits:
+   - 2c267ed58fb7ae335b9c653c151d40ef425c8ab9  (Bring in Xaodorft's comment they took the time to write on why it needs that :3)
+   - ...
+   - b8173b08cc526fb02d5eb2527e93b443d1123651  ((Window manager code) Bring in Xaodorft's implementation of WM_STATE!  :D)
 
 * Original Rebound Fork
 ** This was a fork from v0.3; I (RProgrammer/PuppyPi) have manually merged in the changes made to it onto Umjammer's source tree
