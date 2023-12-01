@@ -6,7 +6,8 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import lombok.*;
+
+import javax.annotation.Nonnull;
 
 import static gnu.util.Strings.requiresNonBlank;
 
@@ -15,16 +16,15 @@ import static gnu.util.Strings.requiresNonBlank;
  * https://gitlab.freedesktop.org/xorg/lib/libxau/-/blob/master/include/X11/Xauth.h
  * https://gitlab.freedesktop.org/xorg/lib/libxau
  */
-@Value
 public class XAuthority {
 
-  @NonNull Family family;
-  @NonNull byte[] address;
+  @Nonnull Family family;
+  @Nonnull byte[] address;
   int displayNumber;
-  @NonNull String protocolName;
-  @NonNull byte[] protocolData;
+  @Nonnull String protocolName;
+  @Nonnull byte[] protocolData;
 
-  public XAuthority(@NonNull Family family, @NonNull byte[] address, int displayNumber, @NonNull String protocolName, @NonNull byte[] protocolData) {
+  public XAuthority(@Nonnull Family family, @Nonnull byte[] address, int displayNumber, @Nonnull String protocolName, @Nonnull byte[] protocolData) {
     this.family = family;
     this.address = address;
     if(displayNumber < 0) {
@@ -112,7 +112,6 @@ public class XAuthority {
     return bytes;
   }
 
-  @ToString
   public enum Family {
     INTERNET(0),
     LOCAL(256),
