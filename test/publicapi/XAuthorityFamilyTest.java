@@ -53,13 +53,11 @@ public class XAuthorityFamilyTest {
 
   @Test
   void fail_getByCode() {
-    boolean pass = false;
     try {
       Family.getByCode(-1234);
+      throw new AssertionError ();
     }
     catch (IllegalArgumentException exc) {
-      pass = true;
     }
-    assert pass;
   }
 }
