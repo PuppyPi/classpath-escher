@@ -103,8 +103,8 @@ public class XAuthority {
       Family family = Family.getByCode(in.readUnsignedShort());
       int dataLength = in.readUnsignedShort();
       byte[] address = readBytes(in, dataLength);
-      int number = Integer.parseInt(in.readUTF());
-      String name = in.readUTF();
+      int number = Integer.parseInt(in.readUTF());  //TODO I don't think X11 actually uses Java's very specific Modified UTF-8 character encoding >>'
+      String name = in.readUTF();  //TODO I don't think X11 actually uses Java's very specific Modified UTF-8 character encoding >>'
       dataLength = in.readUnsignedShort();
       byte[] data = readBytes(in, dataLength);
       return Optional.of(new XAuthority(family, address, number, name, data));
