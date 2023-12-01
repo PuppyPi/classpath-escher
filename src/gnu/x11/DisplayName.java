@@ -1,11 +1,13 @@
 package gnu.x11;
 
-import org.newsclub.net.unix.*;
-
-import java.io.*;
-import java.net.*;
+import java.io.File;
+import java.io.IOException;
+import java.io.UncheckedIOException;
+import java.net.InetAddress;
+import java.net.Socket;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * X display name. Encapsulates display name conventions in unix for creating a Display. If the connection is a unix
@@ -106,13 +108,14 @@ public class DisplayName {
    * connecting. If socketPath is set a unix socket is used otherwise a tcp socket is used.
    * @return
    */
-  public Display connect() {
-    Socket socket;
+  public Display connect(@Nullable UnixSocketOpener unixDomainSocketOpener) {
+    X11Socketlike socket;
 
     try {
       if (socketFile != null) {
-        AFUNIXSocketAddress address = new AFUNIXSocketAddress(socketFile);
-        socket = AFUNIXSocket.connectTo(address);
+        if (unixDomainSocketOpener == null)
+          throw new IllegalArgumentException("We must have the Unix Domain Socket opener for this Display Name!");
+        socket = unixDomainSocketOpener.open(socketFile);
       } else {
         InetAddress address;
         if(hostName == null) {
@@ -120,13 +123,13 @@ public class DisplayName {
         } else {
           address = InetAddress.getByName(hostName);
         }
-        socket = new Socket(address, 6000 + displayNumber);
+        socket = X11Socketlike.fromJRESocket(new Socket(address, 6000 + displayNumber));
       }
     } catch(IOException e) {
       throw new UncheckedIOException(String.format("Failed to create connection to \"%s\".", this), e);
     }
 
-    return new Display(X11Socketlike.fromJRESocket(socket), hostName, displayNumber, screenNumber);
+    return new Display(socket, hostName, displayNumber, screenNumber);
   }
 
   /**
