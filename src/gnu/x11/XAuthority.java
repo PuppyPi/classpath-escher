@@ -115,6 +115,16 @@ public class XAuthority {
       return Optional.empty();
     }
   }
+  
+  static boolean hostNameMatch(byte[] a, String b) {
+    try {
+      InetAddress authAddress = InetAddress.getByName(new String(a, StandardCharsets.UTF_8));
+      InetAddress hostNameAddress = InetAddress.getByName(b);
+      return authAddress.equals(hostNameAddress);
+    }catch(UnknownHostException e) {
+      return false;  //do nothing
+    }
+  }
 
   public static Optional<XAuthority> getAuthority(String hostName) {
     List<XAuthority> auths = getAuthorities();
@@ -124,15 +134,9 @@ public class XAuthority {
           case WILD:
             return Optional.of(auth);
           default:
-            try {
-              InetAddress authAddress = InetAddress.getByName(new String(auth.getAddress(), StandardCharsets.UTF_8));
-              InetAddress hostNameAddress = InetAddress.getByName(hostName);
-              if (authAddress.equals(hostNameAddress)) {
+              if (hostNameMatch (auth.getAddress(), hostName)) {
                 return Optional.of(auth);
               }
-            }catch(UnknownHostException e) {
-              //do nothing
-            }
             break;
         }
     }
