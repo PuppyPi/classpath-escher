@@ -2507,19 +2507,14 @@ public class Window extends Drawable implements GLXDrawable {
     /** 
      * @see #property(boolean, Atom, Atom, int, int)
      */
-    public WMState wmState() {
+    public int wmState() {
+      Atom wm_state = Atom.intern (display, "WM_STATE");
+      Property p = getProperty (false, wm_state, gnu.x11.Atom.INTEGER, 0, 2);
+      if (p.stringValue ().length () == 0) {
+        return -1;
+      }
 
-        // FIXME: Re-think WM -stuff. Maybe do outside of Window as this is
-        // not in the core protocol.
-        return null;
-        //    Atom wm_state = (Atom) Atom.intern (display, "WM_STATE");    
-        //    PropertyReply pi = property (false, wm_state, wm_state, 0, 2);
-        //
-        //    if (pi.format () != 32 
-        //      || pi.type_id () != wm_state.id
-        //      || pi.length () != 2) return null;
-        //
-        //    return new WMState (display, pi);
+      return p.value (0);
     }
 
     /**
