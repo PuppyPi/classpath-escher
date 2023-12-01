@@ -41,7 +41,7 @@ public class XAuthority {
       throw new IllegalArgumentException("displayNumber was \"" + displayNumber + "\" expected >= 0.");
     }
     this.displayNumber = displayNumber;
-    if(protocolName.isEmpty ())
+    if(protocolName.trim().isEmpty())
       throw new IllegalArgumentException ("protocolName was empty");
     this.protocolName = requireNonNull(protocolName);
     this.protocolData = requireNonNull(protocolData);
