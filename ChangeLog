@@ -1,12 +1,18 @@
 -*- outline -*-
 
 * Moaxcp
-** This was a fork from the same source tree as Umjammer's with Marcos's extra commits; I (RProgrammer/PuppyPi) @have manually merged in the changes made to it onto Umjammer's source tree (plus other forks' changes)
+** This was a fork from the same source tree as Umjammer's with Marcos's extra commits; I (RProgrammer/PuppyPi) have manually merged in the changes made to it onto Umjammer's source tree (plus other forks' changes)
 ** It is on GitHub at: https://github.com/moaxcp/escher
-** TODO Merge them!!
-   - @@@  (@@@)
+** The merge took place over these commits:
+   - 1a4951ede0bc9ca3771c5e7c6408f611aa7f7429  (This isn't really very useful anymore; UnixSocketOpener is the real key thing to refactor :3)
    - ...
    - 3a1e017d90879b6c6e4b0c02e65eb19b67a4086c  ((First from Moaxcp!)  Fixed issue all events read from x11 where LAST_EVENT rather than the actual event.)
+** The only other code changes, which we're not merging, seemed to be:
+   - Refactorings, reformattings, reorganizings
+   - Different exception model (RuntimeException based; eg, with X11ClientException not EscherException)
+   - Some utility code we didn't need
+   - Tests for these we're not including
+   - Using lombok Java which is like another *language!*  @,@
 
 * Xaodorft
 ** This was a fork from v0.3; I (RProgrammer/PuppyPi) have manually merged in the changes made to it onto Umjammer's source tree (plus other forks' changes)
