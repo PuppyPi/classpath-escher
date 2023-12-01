@@ -1,6 +1,8 @@
 
 package gnu.x11;
 
+import static java.util.Objects.*;
+
 import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.File;
@@ -33,16 +35,16 @@ public class XAuthority {
   @Nonnull byte[] protocolData;
 
   public XAuthority(@Nonnull Family family, @Nonnull byte[] address, int displayNumber, @Nonnull String protocolName, @Nonnull byte[] protocolData) {
-    this.family = family;
-    this.address = address;
+    this.family = requireNonNull(family);
+    this.address = requireNonNull(address);
     if(displayNumber < 0) {
       throw new IllegalArgumentException("displayNumber was \"" + displayNumber + "\" expected >= 0.");
     }
     this.displayNumber = displayNumber;
     if(protocolName.isEmpty ())
       throw new IllegalArgumentException ("protocolName was empty");
-    this.protocolName = protocolName;
-    this.protocolData = protocolData;
+    this.protocolName = requireNonNull(protocolName);
+    this.protocolData = requireNonNull(protocolData);
   }
 
   public Family getFamily () {
