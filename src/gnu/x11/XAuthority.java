@@ -9,8 +9,6 @@ import java.util.*;
 
 import javax.annotation.Nonnull;
 
-import static gnu.util.Strings.requiresNonBlank;
-
 /**
  * An XAuthority.
  * https://gitlab.freedesktop.org/xorg/lib/libxau/-/blob/master/include/X11/Xauth.h
@@ -31,7 +29,9 @@ public class XAuthority {
       throw new IllegalArgumentException("displayNumber was \"" + displayNumber + "\" expected >= 0.");
     }
     this.displayNumber = displayNumber;
-    this.protocolName = requiresNonBlank("protocolName", protocolName);
+    if(protocolName.isEmpty ())
+      throw new IllegalArgumentException ("protocolName was empty");
+    this.protocolName = protocolName;
     this.protocolData = protocolData;
   }
 
