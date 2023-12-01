@@ -126,7 +126,7 @@ public class DisplayName {
       throw new UncheckedIOException(String.format("Failed to create connection to \"%s\".", this), e);
     }
 
-    return new Display(socket, displayNumber, screenNumber);
+    return new Display(X11Socketlike.fromJRESocket(socket), hostName, displayNumber, screenNumber);
   }
 
   /**
