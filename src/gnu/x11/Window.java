@@ -2504,6 +2504,28 @@ public class Window extends Drawable implements GLXDrawable {
         //    };
     }
 
+    public String wm_class () {
+      Property pi = getProperty (false, Atom.WM_CLASS, Atom.STRING, 0,
+                                  MAX_WM_LENGTH);
+
+      if (pi.format () != 8 || pi.typeID () != Atom.STRING.getID ())
+        return null;
+
+      return pi.stringValue ();
+    }
+
+    public int wm_pid () {
+      Atom wm_pid = Atom.intern (display, "_NET_WM_PID");
+
+      Property p = getProperty (false, wm_pid, gnu.x11.Atom.CARDINAL, 0, 1);
+
+      if (p.stringValue ().length () == 0) {
+        return -1;
+      }
+
+      return p.value (0);
+    }
+
     /** 
      * @see #property(boolean, Atom, Atom, int, int)
      */
