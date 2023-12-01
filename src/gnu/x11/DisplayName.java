@@ -26,11 +26,11 @@ public class DisplayName {
       this.hostName = null;
     }
     if(displayNumber < 0) {
-      throw new X11ClientException("expected displayNumber > 0 but was \"" + displayNumber + "\".");
+      throw new IllegalArgumentException("expected displayNumber > 0 but was \"" + displayNumber + "\".");
     }
     this.displayNumber = displayNumber;
     if(screenNumber < 0) {
-      throw new X11ClientException("expected screenNumber > 0 but was \"" + screenNumber + "\".");
+      throw new IllegalArgumentException("expected screenNumber > 0 but was \"" + screenNumber + "\".");
     }
     this.screenNumber = screenNumber;
     this.socketFile = socketFile;
@@ -123,7 +123,7 @@ public class DisplayName {
         socket = new Socket(address, 6000 + displayNumber);
       }
     } catch(IOException e) {
-      throw new X11ClientException(String.format("Failed to create connection to \"%s\".", this), e);
+      throw new UncheckedIOException(String.format("Failed to create connection to \"%s\".", this), e);
     }
 
     return new Display(socket, displayNumber, screenNumber);
