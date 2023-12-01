@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class XAuthorityFile {
   @Test
-  void readFile() throws IOException {
+  public void readFile() throws IOException {
     List<XAuthority> authorities = XAuthority.getAuthorities(new File(getClass().getClassLoader().getResource(".Xauthority").getFile()));
     assert authorities.size() == 2;
     XAuthority first = authorities.get(0);
