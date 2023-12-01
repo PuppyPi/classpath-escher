@@ -1,10 +1,11 @@
 package gnu.x11;
 
-import lombok.*;
 import org.newsclub.net.unix.*;
 
 import java.io.*;
 import java.net.*;
+
+import javax.annotation.Nonnull;
 
 import static gnu.util.Strings.*;
 
@@ -12,8 +13,6 @@ import static gnu.util.Strings.*;
  * X display name. Encapsulates display name conventions in unix for creating a Display. If the connection is a unix
  * socket the file is "/tmp/.X11-unix/X" + displayNumber. If the connection is tcp the port is 6000 + displayNumber.
  */
-@Getter
-@With
 public class DisplayName {
   private final String hostName;
   private final int displayNumber;
@@ -36,6 +35,23 @@ public class DisplayName {
     this.screenNumber = screenNumber;
     this.socketFile = socketFile;
   }
+  
+  public String getHostName () {
+    return hostName;
+  }
+
+  public int getDisplayNumber () {
+    return displayNumber;
+  }
+
+  public int getScreenNumber () {
+    return screenNumber;
+  }
+
+  public File getSocketFile () {
+    return socketFile;
+  }
+
 
   /**
    * Parses a DisplayName from the DISPLAY environment variable.
@@ -51,7 +67,7 @@ public class DisplayName {
    * @param convention of <code>hostName:displayNumber.screenNumber</code>
    * @return resulting DisplayName
    */
-  public static DisplayName parse(@NonNull String convention) {
+  public static DisplayName parse(@Nonnull String convention) {
     requiresNonBlank("convention", convention);
 
     String hostName = null;
