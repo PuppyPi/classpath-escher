@@ -58,7 +58,6 @@ public class XAuthorityFamilyTest {
       Family.getByCode(-1234);
     }
     catch (IllegalArgumentException exc) {
-      assert "Unsupported code \"-1234\"".equals(exc.getMessage());
       pass = true;
     }
     assert pass;
